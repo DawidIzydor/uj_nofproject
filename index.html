@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="utf-8" />
+<link type="text/css" rel="stylesheet" href="css.css" />
+<script src="jquery-1.12.0.min.js"></script>
+<script src="js.js"></script>
+
+</head>
+
+<body>
+
+<div class="logo">
+<h1>Projekt zaliczeniony NOF</h1>
+<h5>Dawid Sikora</h5>
+</div>
+
+<div class="panel">
+	<div class="panel-header">
+	<h1> Niepewnosci pomiarowe </h1>
+	</div>
+	<div class="panel-body">
+		<input type="textbox" id="niepewnosc" onkeydown="liczNiepew()" />
+
+		<div class="result">
+			<code>
+			Ilosc elementow: <span id="niepewnosc-ilosc"></span><br />
+			Suma: <span id="niepewnosc-suma"></span><br />
+			Srednia: <span id="niepewnosc-srednia"></span><br />
+			Niepewnosc Pomiarowa typu A: <span id="niepewnosc-niepa"></span><br />
+			Niepewnosc wzgledna: <span id="niepewnosc-wzg"></span><br />
+			Estymator największej wiarygodności: <span id="niepewnosc-odch"></span><br />
+			Kod do Mathematici: <span id="niepewnosc-mathematici"></span><br />
+			</code>
+		</div>
+	</div>
+
+</div>
+
+<div class="panel">
+	<div class="panel-header">
+	<h1> Macierz </h1>
+	</div>
+	<div class="panel-body">
+		<textarea id="matrix-input" onkeydown="liczWyz()" ></textarea>
+
+		<div class="result">
+			<code>
+			Wyznacznik: <span id="matrix-wyzn"></span><br />
+			Slad: <span id="matrix-trace"></span><br />
+			Mathematica: <span id="matrix-mathematica"></span><br />
+			<span class="nameholder" onclick='openclose("#matrix-t-div")'>Macierz transponowana:</span> <div class="hidden-closed" id="matrix-t-div"><textarea id="matrix-t" disabled></textarea></div><br />
+			<span class="nameholder" onclick='openclose("#matrix-2nd-div")'>Druga macierz (do sumy i mnozenia):</span> <div class="hidden-closed" id="matrix-2nd-div"><textarea id="matrix-2nd" onkeydown="dodajmnoz()"></textarea>
+			<br />
+			<label for="matrix-sum">Suma</label><br />
+			<textarea id="matrix-sum" disabled></textarea>
+			<br />
+			<label for="matrix-il">Iloczyn</label><br />
+			<textarea id="matrix-il" disabled></textarea>
+			
+			</div><br />
+			</code>
+		</div>
+	</div>
+
+</div>
+
+
+</body>
+
+</html>

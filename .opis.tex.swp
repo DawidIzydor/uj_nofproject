@@ -1,0 +1,132 @@
+\documentclass[11pt]{article}
+
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+
+\title{\textbf{Projekt zaliczeniony NOF}}
+\author{Dawid Sikora}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Opis projektu}
+
+Projekt, który widzi Pan przed swoimi oczyma, to projekt strony internetowej, która ma bardzo rozbudowaną funkcjonalność napisaną w JavaScripcie. W poniższych punktach opisuję dokładnie co jest liczone i w jaki sposób. Zanim jednak przejdę do właściwego opisu chciałbym opowiedzieć, dlaczego wybrałem akurat taki rodzaj projektu.
+
+Strona zawiera kilka podstawowych funkcjonalności, które bardzo ułatwiają pracę, np. podczas pisania szybkiego, krótkiego sprawozdania. Przyja się szczególnie, gdy nie mamy możliwości skorzystania z bardziej zaawansowanych narzędzi, jak np. Mathematica. Oprócz implementacji funcji stosowanych w wspomnianym programie i opisanych poniżej, dużą zaletą jest możliwość łatwego i szybkiego wykonania obliczeń na praktycznie każdym komputerem. Jedynym wymaganiem jest przeglądarka internetowa z obsługą JavaScriptu, a takie są instalowane domyślnie w praktycznie każdym systemie od wielu lat.
+
+Mając do dyspozycji to narzędzie, każdy, kto potrzebuje pilnie wykonać następujące obliczenia, może to zrobić w mgnieniu oka, nie czekając na uruchomienie i wpisanie odpowiednich komend do specjalnych programów. 
+
+\section{Niepewnosci pomiarowe}
+
+Niepewności pomiarowe służą do określania najbardziej prawdopodobnego wyniku pomiaru. Drugim zadaniem jest sprawdzenie, jak bardzo się pomyliliśmy przy poszczególnych pomiarach. Służy do tego kilka metod, które pomagają przy określaniu konkretnych rzeczy. Poniżej omawiam szczegółowo kolejne.
+
+\subsection{Średnia arytmetyczna}
+Średnia arytmetyczna jest to iloraz sumy wszystkich pomiarów przez ilość wykonanych pomiarów. Dzięki średniej arytmetycznej znamy "najbardziej środkowy" wynik. Przy większej ilości pomiarów z dużym prawdopodobieństwem możemy stwierdzić, że jest on najbardziej zbliżony do stanu faktycznego.
+
+\(  Sr = \frac{\sum_{i = 1}^{n} a_i}{n}  \)
+
+\subsection{Niepewność pomiarowa typu A}
+
+Gdy wyniki poszczególnych pomiarów tej samej wielkości różnią się, wówczas niepewność obliczana jest na drodze analizy statystycznej wyników serii pojedynczych pomiarów. Zakłada się przy tym pewien rozkład statystyczny poszczególnych prób. Jeżeli błędy pomiarowe są losowe, tym rozkładem jest rozkład normalny. Wówczas, dla dużej liczby prób (powyżej 30), estymatorem niepewności pomiarowej jest odchylenie standardowe średniej (średni błąd średniej). Dla mniejszej liczby prób niepewność jest większa i równa iloczynowi odchylenia standardowego średniej i współczynnika wynikającego z rozkładu Studenta, który zależy od przyjętego poziomu ufności i liczby pomiarów.
+
+Niepewnosc pomiarowa typu A jest liczona jako pierwiastek ilorazu sumy kwadratów różnic między pomiarem a średnią przez iloczyn liczby pomiarow oraz tej liczby mniejszej o 1.
+
+\( Niep = \sqrt{\frac{\sum_{i = 1}^{n} (a_i - Sr)^2}{n(n-1)}} \)
+
+\subsection{Niepewność względna}
+
+Niepewność względna to procentowo wyrażony iloraz niepewnosci pomiaru oraz sredniej wartosci.
+
+\( Nbzw = \frac{Niep}{Sr} * 100\% \)
+
+\subsection{Estymator największej wiarygodności}
+
+Estymator największej wiarygodności wyznacza taką wartość odchylenia, dla której najbardziej prawdopodobne byłoby wylosowanie takich wyników próby, które w niej faktycznie wystąpiły.
+
+Liczy się go poprzes spierwiastkowanie ilorazu sumy kwadratów różnic między wynikiem i średnią przez ilość pomiarów.
+
+\( s = \sqrt{\frac{\sum_{i_1}^{n} (a_i - Sr)^2}{n}} \)
+
+\section{Działania na macierzach}
+
+\subsection{Wyznacznik macierzy}
+
+Wyznacznik macierzy jest to działanie na macierzy w trakcie którego dodaje się i mnoży konkretne wyrazy. Stosuje się go np. przy liczeniu macierzy odwrotnej albo rozwiązywaniu równań liniowych.
+
+\subsection{Rozwinięcie Laplace'a}
+
+Do algorytmu liczącego wyznacznik podanej macierzy wykorzystałem rozwinięcie Laplace'a. Jest to wzór rekurencyjny określający wyznacznik n-tego stopnia macierzy kwadratowej o wymiarach $n \times n$. Wyznacznik $ det A $ macierzy $A_{n \times n} $ znajduje się korzystając z następującego wzoru:
+
+\( det A = \sum_{j = 1}^{n} a_{ij} A_{ij} \)
+
+i jest ustalone - jest to numer wiersza względem którego następuje rozwinięcie.
+
+W funkcji, którą napisałem i która liczy wyznacznik rozwijam zawsze według pierwszego wiersza.
+
+\subsection{Ślad macierzy}
+Ślad macierzy jest to suma elementów na głównej przekątnej macierzy kwadratowej.
+
+\( tr(A) = \sum_{i = 1}^{n} a_{ii} \)
+
+\subsection{Transpozycja macierzy}
+Macierz transponowana do macierzy A, jest to macierz tak jakby "odwrócona symetrycznie" względem głównej przekątnej. Tworzy się ją poprzez zamiany wierszy z kolumnami.
+
+\( A = (a_{ij}) \\
+A^T = (a_{ij})^T = (a_{ji}) \)
+
+\subsection{Dodawanie macierzy}
+Aby móc dodać dwie macierze do siebie musimy najpierw sprawdzić, czy są one tego samego wymiaru. Jeśli są, to w wyniku dodawania wyjdzie macierz o takich samych wymiarach, której kolejne elementy powstają w wyniku dodania kolejnych elementów macierzy, które się dodaje.
+
+\( A = (a_{ij}) \\ B = (b_{ij}) \\ C = (a_{ij} + b_{ij}) \)
+
+\subsection{Mnożenie macierzy przez macierz}
+Aby móc pomnożyć macierz przez inną macierz musimy najpierw sprawdzić, czy macierz B ma taką samą ilość wierszy, ile macierz A ma kolumn. Wynikiem będzie macierz o ilości wierszy takiej, jak ilość wierszy macierzy A oraz ilości kolumn takiej, jak ilość kolumn macierzy B.
+
+\( A_{n\times m} \wedge B_{m \times p} \Rightarrow C_{n \times p} \)
+
+\section{Pliki zawarte w paczce}
+
+W paczce powinno znajdować się kilka plików, które są opisane poniżej
+\subsection{index.html}
+Plik zawierajacy kod html wyświetlany na stronie. Otwarcie tego pliku przez przeglądarke umożliwia pracę skryptu napisanego w JavaScripcie, z tego powodu przeglądarka musi mieć włączoną obsługę JavaScriptu. Wszystkie obliczenia wykonywane są automatycznie w trakcie wpisywania kolejnych symboli. Czasem może być potrzebne dodanie na końcu spacji, aby wynik został przeliczony prawidłowo.
+
+\subsection{js.js}
+Główny plik zawierający cały skrypt napisany w języku JavaScript. W środku znajdują się definicje wszystkich funkcji użytych do przeliczania opisanych wyżej problemów.
+
+\subsubsection{function openclose(id) }
+Funkcja słuzy do pokazywania lub ukrywania obiektu DOM o identyfikatorze $id$.\\$id$ może być zarówno w formacie $ \# id $ - wtedy zostanie otwarty lub zamknięty obiekt o konkretnym id jak i w formacie $ .class $ - wtedy zostaną otwarte lub zamknięte wszystkie obiekty klasy $class$
+
+\subsubsection{function liczNiepew() }
+Funkcja służy do obliczania wszystkich problemów opisanych w punkcie 2 - Niepewności pomiarowe. Wszystkie liczone są automatycznie a następnie wynik wyświetlany jest poniżej pola $input$
+
+\subsubsection{function laplace(array) }
+Funkcja licząca wyznacznik macieryz $array$ przy pomocy rozwinięcia Laplace'a. W Przypadku gdy podana do niej jest macierz $1 \times 1$ lub $2 \times 2$ to liczy i zwraca od razu wyznacznik, w przeciwnym przypadku funkcja jest wywoływana rekurencyjnie poprzez zastosowanie rozwinięcia Laplace'a względem pierwszego wiersza.
+
+\subsubsection{function mnoz(array, array2) }
+Funkcja mnożąca macierz $array$ przez macierz $array2$, zwraca macierz wynikową.
+
+\subsubsection{function dodajmnoz()}
+Funkcja wywoływana w momencie naciśnięcia klawisza w polu, w którym wpisuje się drugą macierz,ma w sobie implementacje dodawania macierzy, oraz korzysta z funkcji $mnoz()$ aby pomnozyc a następnie wyświetlić dwie podane macierze.
+
+\subsubsection{function transpose(array) }
+Funkcja wykonująca transpozycje macierzy.
+
+\subsubsection{function getArr(id) }
+Funkcja pomocnicza przekształcająca input o identyfikatorze $\#id$ do macierzy dwuwymiarowej.
+
+\subsubsection{function liczWyz() }
+Funkcja sprawdzająca, czy podana macierz jest kwadratowa, jeśli tak to wykonuje odpowiednie obliczenia - liczy ślad oraz korzystając z funkcji $laplace()$ - wyznacznik macierzy. Funkcja wykonuje również transpozycje macierzy każdej (niekoniecznie kwadratowej).
+
+\subsection{jquery-1.12.0.min.js}
+Plik zawierający biblioteke jQuery - wymagany do poprawnego działania $js.js$
+
+\subsection{css.css}
+Plik zawierający opis formatowania strony $index.html$ zapisany przy pomocy CSS3
+
+\subsection{opis.tex}
+Ten plik.
+
+\end{document}

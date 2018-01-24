@@ -1,0 +1,46 @@
+
+.logo{
+	background-color: #ffffee;
+
+}
+
+
+.panel{
+	max-width: 500px;
+	margin: 5px auto 5px auto;
+
+	border: 1px solid;
+	padding: 2px;
+}
+
+input{
+	width: 90%;
+	margin: auto;
+}
+
+textarea{
+	width: 90%;
+	height: 250px;
+	margin: auto;
+}
+
+.result{
+	margin: 2px auto 2px auto;
+}
+
+h1{
+	text-decoration: underline;
+}
+
+.hidden-closed{
+	display: none;
+}
+
+.hidden-opened{
+	display: inherit;
+}
+
+.nameholder{
+	text-decoration: none;
+	color: #000099;
+}
